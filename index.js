@@ -7,8 +7,8 @@ const path = "./data.json";
 
 const markCommit = (x, y) => {
   const date = moment()
-    .subtract(1, "y")
-    .add(1, "d")
+    .year(2022) // Set tahun ke 2022
+    .startOf("year")
     .add(x, "w")
     .add(y, "d")
     .format();
@@ -23,17 +23,22 @@ const markCommit = (x, y) => {
 };
 
 const makeCommits = (n) => {
-  if(n===0) return simpleGit().push();
-  const x = random.int(0, 54);
-  const y = random.int(0, 6);
-  const date = moment().subtract(1, "y").add(1, "d").add(x, "w").add(y, "d").format();
+  if (n === 0) return simpleGit().push();
+  const x = random.int(0, 52); // Total minggu dalam setahun
+  const y = random.int(0, 6); // Hari dalam seminggu
+  const date = moment()
+    .year(2022) // Set tahun ke 2022
+    .startOf("year")
+    .add(x, "w")
+    .add(y, "d")
+    .format();
 
   const data = {
     date: date,
   };
   console.log(date);
   jsonfile.writeFile(path, data, () => {
-    simpleGit().add([path]).commit(date, { "--date": date },makeCommits.bind(this,--n));
+    simpleGit().add([path]).commit(date, { "--date": date }, makeCommits.bind(this, --n));
   });
 };
 
