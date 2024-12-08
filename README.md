@@ -24,7 +24,3 @@ npm init -y
     ```bash
   node index.js
   ```
-    
-## Credits
-Huge thanks to [Akshay Saini](https://github.com/akshaymarch7) for the original video behind this project.
-RESPECT
